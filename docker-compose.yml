@@ -1,0 +1,27 @@
+version: "3"
+services:
+  # The Application
+  app:
+    build:
+      context: ./
+      dockerfile: app.dockerfile
+    ports:
+      - "3333:3333"
+    volumes:
+      - /Users/damnx/Documents/nodejs/quiz
+    links:
+      - database
+  # The Database
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+volumes:
+  postgresql:
+  postgresql_data:
